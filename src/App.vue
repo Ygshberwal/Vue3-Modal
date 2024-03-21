@@ -4,10 +4,27 @@
   <button @click="handleClick">Click me</button>
   <!-- header and text can be exported to Modal -->
   <p>Welcome...</p>
-  <div v-if="showModal">
-    <Modal :header=header :text=text theme="dark" @close="toggleModal"/>
-  </div>
+  <Teleport to=".modals" v-if="showModal">
+    <Modal  theme="dark" @close="toggleModal">
+      <template v-slot:links>
+        <a href="#">Sign Up now</a>
+        <a href="#">More info..</a>
+      </template>
+      <h1>Sign in for the Giveaway!!!</h1>
+      <p>Grab the Opportunity ASAP</p>
+    </Modal>
+  </Teleport>
+
+  <Teleport to=".modals" v-if="showModal2">
+    <Modal theme="dark" @close="toggleModal2">
+      
+      <h1>Sign for the newsletter</h1>
+      <p>For updates and promo vodes!</p>
+    </Modal>
+  </Teleport>
+
   <button @click.alt="toggleModal">Open Modal (Alt)</button>
+  <button @click="toggleModal2">Open Modal</button>
   
 </template>
 
@@ -19,9 +36,8 @@ export default {
   data(){
     return{
       title:'This is my First Vue app :) ',
-      header:"Sign in for the Giveaway!",
-      text:"Grab the Opportunity ASAP",
-      showModal:false
+      showModal:false,
+      showModal2:false
     }
   },
   methods:{
@@ -32,13 +48,16 @@ export default {
     },
     toggleModal(){
       this.showModal=!this.showModal
+    },
+    toggleModal2(){
+      this.showModal2=!this.showModal2
     }
   }
 }
 </script>
 
 <style>
-#app {
+#app, .modals{
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

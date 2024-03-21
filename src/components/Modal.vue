@@ -1,8 +1,10 @@
 <template>
     <div class="backdrop" @click.self="closeModal">
         <div class="modal" :class="{dark: theme==='dark'}">
-            <h1>{{ header }}</h1>
-            <p>{{ text }}</p>
+            <slot>Default content. This will only show when we don't pass in default slot</slot>
+            <div class="actions">
+                <slot name="links"></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -40,6 +42,18 @@ h1{
     border: none;
     padding: 0;
 }
+.modal .actions{
+    text-align: center;
+    margin: 30px 0 10px 0;
+}
+.modal .actions a{
+    color: #f88a8a;
+    padding: 8px;
+    margin: 10px;
+    border: 1px solid #f2d9d9;
+    border-radius: 4px;
+    text-decoration: none;
+}
 .modal.dark{
     background-color: black;
     color: white;
@@ -47,7 +61,12 @@ h1{
 .modal.dark h1{
     color: white;
 }
-
+.modal.dark .actions{
+    color: #e35353;
+}
+.modal.dark .actions a{
+    color: #e35353;
+}
 </style>
 
 <!-- EXPORT IT TO IT'S PARENT COMPONENT -->
